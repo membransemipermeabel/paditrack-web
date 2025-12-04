@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PadiTrack - Analisis Rantai Pasok Padi | IPB University</title>
+    
+    <!-- Fonts: Inter & Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        padi: {
+                            dark: '#1B4D3E',   /* Hijau Tua Tenang */
+                            medium: '#4A7c59', /* Hijau Daun */
+                            light: '#C4D7C8',  /* Hijau Pucat */
+                            cream: '#F9F7F2',  /* Krem Beras */
+                            accent: '#F4A261', /* Oranye Aksen */
+                            slate: '#E5E7EB'   /* Abu-abu Border */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Roboto', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'pattern': "url('https://www.transparenttextures.com/patterns/cubes.png')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Link ke Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-padi-cream text-gray-800 font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-md fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo / Brand -->
+                <a href="#home" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 bg-padi-dark group-hover:bg-padi-medium transition rounded-full flex items-center justify-center text-white shadow-lg">
+                        <i class="fa-solid fa-seedling text-lg"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-heading font-bold text-padi-dark tracking-wide group-hover:text-padi-medium transition">PadiTrack</h1>
+                        <p class="text-[10px] uppercase tracking-wider text-gray-500">Supply Chain Optimization</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-gray-600 hover:text-padi-dark font-medium transition py-1">Home</a>
+                    <a href="#dashboard" class="nav-link text-gray-600 hover:text-padi-dark font-medium transition py-1">Dashboard</a>
+                    <a href="#background" class="nav-link text-gray-600 hover:text-padi-dark font-medium transition py-1">Latar Belakang</a>
+                    <a href="#members" class="nav-link text-gray-600 hover:text-padi-dark font-medium transition py-1">Anggota</a>
+                    <a href="#about" class="nav-link text-gray-600 hover:text-padi-dark font-medium transition py-1">Tentang</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-600 focus:outline-none hover:text-padi-dark transition">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-100 bg-white absolute left-0 w-full px-6 shadow-lg">
+                <a href="#home" onclick="toggleMobileMenu()" class="block w-full text-left py-3 mt-2 text-gray-600 hover:text-padi-dark border-b border-gray-50">Home</a>
+                <a href="#dashboard" onclick="toggleMobileMenu()" class="block w-full text-left py-3 text-gray-600 hover:text-padi-dark border-b border-gray-50">Dashboard</a>
+                <a href="#background" onclick="toggleMobileMenu()" class="block w-full text-left py-3 text-gray-600 hover:text-padi-dark border-b border-gray-50">Latar Belakang</a>
+                <a href="#members" onclick="toggleMobileMenu()" class="block w-full text-left py-3 text-gray-600 hover:text-padi-dark border-b border-gray-50">Anggota</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="block w-full text-left py-3 text-gray-600 hover:text-padi-dark">Tentang</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main>
+
+        <!-- HOMEPAGE SECTION (Hero) -->
+        <section id="home" class="min-h-screen flex items-center pt-20 relative overflow-hidden bg-gradient-to-br from-padi-cream via-white to-green-50">
+            <!-- Decorative Background Element -->
+            <div class="absolute top-0 right-0 w-1/3 h-full bg-padi-light/20 skew-x-12 transform origin-top-right translate-x-20"></div>
+
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="flex flex-col-reverse lg:flex-row items-center lg:space-x-16">
+                    <!-- Text Content -->
+                    <div class="lg:w-1/2 space-y-8 mt-10 lg:mt-0 reveal active">
+                        <div class="inline-flex items-center space-x-2 bg-white border border-padi-light rounded-full px-4 py-1.5 shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                            <span class="text-xs font-bold text-padi-dark tracking-wide uppercase">IPB University Project</span>
+                        </div>
+                        
+                        <h2 class="text-5xl lg:text-6xl font-heading font-extrabold text-padi-dark leading-tight">
+                            Optimalisasi <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-padi-medium to-padi-dark">Rantai Pasok Padi</span>
+                        </h2>
+                        
+                        <p class="text-xl text-gray-600 leading-relaxed max-w-lg">
+                            Mengubah data operasional menjadi wawasan strategis untuk menekan <em>post-harvest losses</em> dari panen hingga penggilingan, memastikan efisiensi bahan kering yang maksimal.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-4 pt-2">
+                            <a href="#dashboard" class="bg-padi-dark hover:bg-green-900 text-white px-8 py-4 rounded-xl shadow-xl shadow-green-900/20 transition transform hover:-translate-y-1 font-semibold flex items-center group">
+                                Buka Dashboard 
+                                <i class="fa-solid fa-arrow-right ml-3 group-hover:translate-x-1 transition"></i>
+                            </a>
+                            <a href="#background" class="bg-white border-2 border-padi-light hover:border-padi-dark text-padi-dark px-8 py-4 rounded-xl shadow-sm transition font-semibold">
+                                Pelajari Konsep
+                            </a>
+                        </div>
+                        
+                        <!-- Quick Stats Mini -->
+                        <div class="grid grid-cols-3 gap-4 pt-8 border-t border-gray-200">
+                            <div>
+                                <p class="text-2xl font-bold text-padi-dark">3</p>
+                                <p class="text-xs text-gray-500 uppercase font-semibold">Titik Kritis</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-padi-dark">100%</p>
+                                <p class="text-xs text-gray-500 uppercase font-semibold">Data Driven</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-padi-dark">Realtime</p>
+                                <p class="text-xs text-gray-500 uppercase font-semibold">Monitoring</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Image Parallax Feel -->
+                    <div class="lg:w-1/2 reveal delay-200">
+                        <div class="relative group">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-padi-medium to-teal-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                            <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                                <img src="petani.jpg" 
+                                     alt="Petani Padi Modern" 
+                                     class="w-full h-[500px] object-cover transform transition duration-700 hover:scale-105">
+                                
+                                <!-- Floating Badge -->
+                                <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur px-4 py-3 rounded-lg shadow-lg border-l-4 border-padi-medium">
+                                    <p class="text-sm font-bold text-gray-800">Analisis Kehilangan</p>
+                                    <p class="text-xs text-gray-500">Panen - Pengeringan - Giling</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll Down Indicator -->
+            <a href="#dashboard" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-padi-medium opacity-70 hover:opacity-100 transition">
+                <i class="fa-solid fa-chevron-down text-2xl"></i>
+            </a>
+        </section>
+
+        <!-- DASHBOARD SECTION -->
+        <section id="dashboard" class="py-24 bg-white relative">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <span class="text-padi-medium font-bold tracking-wider uppercase text-sm">Visualisasi Data</span>
+                    <h2 class="text-4xl font-heading font-bold text-padi-dark mt-2 mb-6">Dashboard Analitik Interaktif</h2>
+                    <p class="max-w-3xl mx-auto text-gray-600 text-lg">
+                        Pantau perjalanan bahan kering padi dari panen hingga menjadi beras akhir. 
+                        Gunakan fitur <strong>Sankey Diagram</strong>, <strong>Decomposition Tree</strong>, dan filter pintar untuk analisis mendalam.
+                    </p>
+                </div>
+
+                <!-- Power BI Container with Shadow & Border -->
+                <div class="bg-gray-50 p-2 rounded-2xl shadow-2xl border border-gray-200 reveal delay-100">
+                    <div class="bg-white rounded-xl overflow-hidden relative">
+                        <!-- Toolbar Simulation -->
+                        <div class="bg-gray-100 px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex space-x-1.5">
+                                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                                </div>
+                                <span class="text-xs text-gray-500 font-mono border-l pl-4 border-gray-300">PadiTrack_Report_v1.0.pbix</span>
+                            </div>
+                            <div class="text-gray-400 text-xs">
+                                <i class="fa-solid fa-lock mr-1"></i> Secure Connection
+                            </div>
+                        </div>
+
+                        <!-- Embed Area (Responsive Aspect Ratio) -->
+                        <div class="w-full aspect-[16/9] bg-gray-900 flex items-center justify-center relative group">
+                            
+                            <!-- Placeholder UI -->
+                            <div class="absolute inset-0 flex flex-col items-center justify-center z-0 text-gray-500">
+                                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mb-4"></div>
+                                <p class="text-lg font-medium text-white">Memuat PadiTrack Dashboard...</p>
+                            </div>
+
+                            <!-- Actual Iframe -->
+                            <iframe title="Rice Supply Chain Dashboard" 
+                                    class="w-full h-full z-10 relative opacity-0 transition-opacity duration-1000 onload-fade-in"
+                                    src="https://app.powerbi.com/reportEmbed?reportId=871698cc-cef3-4a88-96e1-5f78c496354f&autoAuth=true&ctid=fedd5298-8e66-45f1-b321-fd38ad0ff722" 
+                                    frameborder="0" 
+                                    onload="this.classList.remove('opacity-0')"
+                                    allowFullScreen="true">
+                            </iframe>
+                            
+                            <!-- Overlay for touch feedback on mobile (optional) -->
+                            <div class="absolute bottom-4 right-4 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition">
+                                <span class="bg-black/50 text-white text-xs px-2 py-1 rounded">Interactive View</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Grid below dashboard -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 reveal">
+                    <div class="bg-green-50 p-5 rounded-xl border border-green-100 flex items-start space-x-3">
+                        <div class="bg-green-200 p-2 rounded-lg text-green-800"><i class="fa-solid fa-filter"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 text-sm">Smart Filtering</h4>
+                            <p class="text-xs text-gray-600 mt-1">Filter berdasarkan Petani, Varietas, dan Bulan Panen.</p>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-5 rounded-xl border border-blue-100 flex items-start space-x-3">
+                        <div class="bg-blue-200 p-2 rounded-lg text-blue-800"><i class="fa-solid fa-project-diagram"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 text-sm">Sankey Diagram</h4>
+                            <p class="text-xs text-gray-600 mt-1">Visualisasi aliran massa bahan kering yang intuitif.</p>
+                        </div>
+                    </div>
+                    <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-100 flex items-start space-x-3">
+                        <div class="bg-yellow-200 p-2 rounded-lg text-yellow-800"><i class="fa-solid fa-tree"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 text-sm">Decomposition Tree</h4>
+                            <p class="text-xs text-gray-600 mt-1">Analisis akar masalah hingga ke level detil.</p>
+                        </div>
+                    </div>
+                    <div class="bg-purple-50 p-5 rounded-xl border border-purple-100 flex items-start space-x-3">
+                        <div class="bg-purple-200 p-2 rounded-lg text-purple-800"><i class="fa-solid fa-chart-line"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 text-sm">KPI Real-time</h4>
+                            <p class="text-xs text-gray-600 mt-1">Monitoring persentase losses secara langsung.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BACKGROUND SECTION (Parallax Text) -->
+        <section id="background" class="py-24 bg-padi-dark text-white relative bg-fixed" style="background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');">
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-16 reveal">
+                        <span class="text-padi-light font-bold tracking-wider uppercase text-sm border-b border-padi-light pb-1">Context</span>
+                        <h2 class="text-4xl font-heading font-bold mt-4">Latar Belakang Proyek</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center reveal">
+                        <!-- Problem Statement -->
+                        <div class="space-y-6">
+                            <h3 class="text-2xl font-bold text-white flex items-center">
+                                <span class="bg-white text-padi-dark w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">1</span>
+                                Tantangan Utama
+                            </h3>
+                            <p class="text-gray-300 leading-relaxed text-justify">
+                                Agroindustri padi di Indonesia menghadapi tantangan besar berupa tingginya angka kehilangan hasil (<em>post-harvest loss</em>). Kehilangan ini sering kali terjadi secara 'invisible' dalam bentuk penyusutan bobot bahan kering yang tidak terpantau dengan baik akibat keterbatasan alat, rendahnya tingkat mekanisasi, dan kurangnya sistem monitoring (Andriani et al. 2025).
+                            </p>
+                            <div class="p-4 bg-white/10 rounded-lg border-l-4 border-padi-accent">
+                                <p class="text-sm italic text-gray-200">"Pendekatan berbasis intuisi tidak lagi memadai. Diperlukan solusi berbasis data untuk memetakan kebocoran terbesar."</p>
+                            </div>
+                        </div>
+
+                        <!-- Critical Points Graphics -->
+                        <div class="space-y-4">
+                            <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition duration-300 border border-white/10">
+                                <div class="flex items-center mb-2">
+                                    <i class="fa-solid fa-wheat-awn text-padi-accent text-xl mr-3"></i>
+                                    <h4 class="font-bold text-lg">Fase Panen</h4>
+                                </div>
+                                <p class="text-sm text-gray-400">Risiko pemanenan terlambat atau teknik perontokan yang kurang optimal menyebabkan butir tercecer.</p>
+                            </div>
+                            
+                            <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition duration-300 border border-white/10">
+                                <div class="flex items-center mb-2">
+                                    <i class="fa-solid fa-sun text-yellow-400 text-xl mr-3"></i>
+                                    <h4 class="font-bold text-lg">Fase Pengeringan</h4>
+                                </div>
+                                <p class="text-sm text-gray-400">Pengeringan tidak seragam menyebabkan kadar air tidak merata, memicu butir patah dan susut bobot.</p>
+                            </div>
+
+                            <div class="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition duration-300 border border-white/10">
+                                <div class="flex items-center mb-2">
+                                    <i class="fa-solid fa-industry text-blue-400 text-xl mr-3"></i>
+                                    <h4 class="font-bold text-lg">Fase Penggilingan</h4>
+                                </div>
+                                <p class="text-sm text-gray-400">Mesin tanpa kalibrasi yang baik menghasilkan beras pecah kulit (broken rice) yang tinggi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEMBERS SECTION -->
+        <section id="members" class="py-24 bg-padi-cream">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <span class="text-padi-medium font-bold tracking-wider uppercase text-sm">Tim Peneliti</span>
+                    <h2 class="text-4xl font-heading font-bold text-padi-dark mt-2">Kelompok 1 - K1</h2>
+                    <p class="text-gray-600 mt-2">Departemen Teknologi Industri Pertanian | IPB University</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Member 1 -->
+                    <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden group reveal delay-100 transform hover:-translate-y-2">
+                        <div class="h-32 bg-gradient-to-r from-green-800 to-green-600 relative">
+                            <div class="absolute -bottom-12 left-1/2 transform -translate-x-1/2">
+                                <div class="w-24 h-24 rounded-full border-4 border-white bg-gray-200 overflow-hidden shadow-md">
+                                    <img src="qudhori.png" alt="Ahmad Qudhori" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-16 pb-8 px-6 text-center">
+                            <h3 class="text-xl font-bold text-gray-800">Ahmad Qudhori</h3>
+                            <p class="text-xs font-mono text-gray-500 mb-1">NIM: F3401241059</p>
+                            <div class="inline-block bg-green-50 text-green-700 text-xs px-3 py-1 rounded-full font-medium mb-4">Analisis Data & Pemodelan</div>
+                            <div class="flex justify-center space-x-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <a href="#" class="text-gray-400 hover:text-padi-dark"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-padi-dark"><i class="fa-brands fa-github text-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Member 2 -->
+                    <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden group reveal delay-200 transform hover:-translate-y-2">
+                        <div class="h-32 bg-gradient-to-r from-teal-800 to-teal-600 relative">
+                            <div class="absolute -bottom-12 left-1/2 transform -translate-x-1/2">
+                                <div class="w-24 h-24 rounded-full border-4 border-white bg-gray-200 overflow-hidden shadow-md">
+                                    <img src="sam.png" alt="Samudra Ghifary" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-16 pb-8 px-6 text-center">
+                            <h3 class="text-xl font-bold text-gray-800">Samudra Ghifary G</h3>
+                            <p class="text-xs font-mono text-gray-500 mb-1">NIM: F3401241049</p>
+                            <div class="inline-block bg-teal-50 text-teal-700 text-xs px-3 py-1 rounded-full font-medium mb-4">Teknologi & Infrastruktur</div>
+                            <div class="flex justify-center space-x-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <a href="#" class="text-gray-400 hover:text-padi-dark"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-padi-dark"><i class="fa-brands fa-github text-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Member 3 -->
+                    <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden group reveal delay-300 transform hover:-translate-y-2">
+                        <div class="h-32 bg-gradient-to-r from-yellow-600 to-orange-500 relative">
+                            <div class="absolute -bottom-12 left-1/2 transform -translate-x-1/2">
+                                <div class="w-24 h-24 rounded-full border-4 border-white bg-gray-200 overflow-hidden shadow-md">
+                                    <img src="keisha.png" alt="Keisya Jelita" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-16 pb-8 px-6 text-center">
+                            <h3 class="text-xl font-bold text-gray-800">Keisya Jelita A. P</h3>
+                            <p class="text-xs font-mono text-gray-500 mb-1">NIM: F3401241026</p>
+                            <div class="inline-block bg-orange-50 text-orange-700 text-xs px-3 py-1 rounded-full font-medium mb-4">Riset Lapangan & Strategi</div>
+                            <div class="flex justify-center space-x-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <a href="#" class="text-gray-400 hover:text-padi-dark"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-padi-dark"><i class="fa-brands fa-github text-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="py-24 bg-white relative">
+            <!-- Decorative circle -->
+            <div class="absolute top-20 left-0 w-64 h-64 bg-green-50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+            <div class="absolute top-20 right-0 w-64 h-64 bg-yellow-50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
+
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="flex flex-col md:flex-row gap-16 items-center">
+                    <div class="md:w-1/2 reveal">
+                        <span class="text-padi-medium font-bold tracking-wider uppercase text-sm">Overview</span>
+                        <h2 class="text-4xl font-heading font-bold text-padi-dark mb-6 mt-2">Tentang Platform PadiTrack</h2>
+                        <div class="prose prose-lg text-gray-600 text-justify">
+                            <p class="mb-4">
+                                Platform <strong>PadiTrack</strong> dirancang sebagai sistem pendukung keputusan (DSS) yang menjembatani kesenjangan informasi dalam rantai pasokan agroindustri.
+                            </p>
+                            <p class="mb-4">
+                                Kami mengintegrasikan data dari lapangan (input manual petani) dengan data proses mesin (pengeringan dan penggilingan) melalui pipeline <strong>ETL (Extract, Transform, Load)</strong> yang presisi. Platform ini tidak hanya menampilkan angka, tetapi menceritakan "kisah" di balik setiap butir padi yang dipanen.
+                            </p>
+                        </div>
+                        
+                        <div class="mt-8 grid grid-cols-2 gap-4">
+                            <div class="flex items-center space-x-2 text-sm font-medium text-gray-700">
+                                <i class="fa-solid fa-check-circle text-green-500"></i>
+                                <span>Firebase Integration</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-sm font-medium text-gray-700">
+                                <i class="fa-solid fa-check-circle text-green-500"></i>
+                                <span>Power BI Analytics</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-sm font-medium text-gray-700">
+                                <i class="fa-solid fa-check-circle text-green-500"></i>
+                                <span>Real-time Monitoring</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-sm font-medium text-gray-700">
+                                <i class="fa-solid fa-check-circle text-green-500"></i>
+                                <span>Responsive Web</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:w-1/2 w-full reveal delay-200">
+                        <div class="bg-gradient-to-br from-padi-dark to-black p-8 rounded-2xl shadow-2xl text-white relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                            
+                            <h3 class="font-bold text-xl mb-6 border-b border-white/20 pb-4">Detail Proyek</h3>
+                            
+                            <div class="space-y-6">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-400 text-sm uppercase">Institusi</span>
+                                    <span class="font-medium text-right">IPB University</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-400 text-sm uppercase">Departemen</span>
+                                    <span class="font-medium text-right">Teknologi Industri Pertanian</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-400 text-sm uppercase">Fokus</span>
+                                    <span class="font-medium text-right">Post-Harvest Loss Analysis</span>
+                                </div>
+                                
+                                <div class="pt-4 mt-4 border-t border-white/20">
+                                    <span class="block text-gray-400 text-sm uppercase mb-2">Tech Stack</span>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded text-xs border border-yellow-500/30">Power BI</span>
+                                        <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded text-xs border border-blue-500/30">Firebase</span>
+                                        <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded text-xs border border-green-500/30">Tailwind CSS</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-seedling text-white text-sm"></i>
+                        </div>
+                        <h2 class="text-2xl font-heading font-bold">PadiTrack</h2>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+                        Solusi digital untuk memantau dan meminimalkan kehilangan pasca-panen dalam rantai pasok padi Indonesia melalui pendekatan berbasis data.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Navigasi</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#home" class="hover:text-white transition">Home</a></li>
+                        <li><a href="#dashboard" class="hover:text-white transition">Dashboard</a></li>
+                        <li><a href="#background" class="hover:text-white transition">Latar Belakang</a></li>
+                        <li><a href="#members" class="hover:text-white transition">Anggota Tim</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Kontak</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li class="flex items-center"><i class="fa-solid fa-university w-5"></i> IPB University</li>
+                        <li class="flex items-center"><i class="fa-solid fa-flask w-5"></i> Dept. Teknologi Industri Pertanian</li>
+                        <li class="flex items-center"><i class="fa-solid fa-location-dot w-5"></i> Bogor, Indonesia</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2025 Kelompok 1 - K1. All Rights Reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Link ke File JS Eksternal -->
+    <script src="script.js"></script>
+</body>
+</html>
